@@ -1,18 +1,19 @@
 <?php
 require_once ('common_include.php');
 
-
 //TODO: check credentials, and store the hub name
 if (isset($_POST["base64"])) {
-    $base64 = mysql_real_escape_string($_POST["base64"]);
-    $result = mysql_query("INSERT INTO images (content) VALUES('$base64')");
+    $base64 = mysqli_real_escape_string($link, $_POST["base64"]);
+    $result = mysqli_query($link, "INSERT INTO images (content) VALUES('$base64')");
     if (!$result) {
-        die('Error: Invalid query: ' . mysql_error());
+        printf("Error: %s\n", mysqli_sqlstate($link));
+        exit();
     } else {
-        // TODO: if more than 10 images, delete the last one
-        echo 'ok';
+        mysqli_query($link, "set @old_id = (SELECT id FROM `images` ORDER BY id DESC LIMIT 1 OFFSET 10)");
+        mysqli_query($link, 'DELETE FROM images WHERE id <= @old_id');
+        die('ok');
     }
 } else {
-    echo 'missing post data';
+    die('missing post data');
 }
 ?>

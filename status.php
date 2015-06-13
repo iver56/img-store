@@ -1,10 +1,10 @@
 <?php
 require_once ('common_include.php');
 
-$result = mysql_query('SELECT timestamp FROM images ORDER BY id DESC LIMIT 1');
+$result = mysqli_query($link, 'SELECT timestamp FROM images ORDER BY id DESC LIMIT 1');
 $data = array();
 if ($result) {
-    $row = mysql_fetch_assoc($result);
+    $row = mysqli_fetch_assoc($result);
     
     $is_outdated = strtotime($row['timestamp']) < strtotime('-15 minutes');
     
@@ -16,6 +16,6 @@ if ($result) {
     header('Content-Type: application/json');
     echo json_encode($arr);
 } else {
-    die('Error: Invalid query: ' . mysql_error());
+    die('Error: Invalid query: ' . mysqli_error());
 }
 ?>
