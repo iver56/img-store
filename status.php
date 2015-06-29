@@ -18,4 +18,3 @@ if ($result) {
 } else {
     die('Error: Invalid query: ' . mysqli_error());
 }
-?>

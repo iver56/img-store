@@ -16,4 +16,3 @@ if (isset($_POST["base64"])) {
 } else {
     die('missing post data');
 }
-?>
