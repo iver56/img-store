@@ -2,11 +2,16 @@
 require_once ('common_include.php');
 
 if (isset($_GET["pw"]) && $_GET["pw"] == SCHEDULER_PASSWORD) {
-    $result = mysqli_query($link, 'SELECT content FROM images ORDER BY id DESC LIMIT 1');
+    $result = mysqli_query($link, 'SELECT content, timestamp FROM images ORDER BY id DESC LIMIT 1');
     if ($result) {
         $row = mysqli_fetch_assoc($result);
-        $base64 = $row['content'];
 
+        $is_outdated = strtotime($row['timestamp']) < strtotime('-150 minutes');
+        if ($is_outdated) {
+            die('There is no new file to transfer');
+        }
+
+        $base64 = $row['content'];
         $stream = fopen('data://image/jpeg;base64,' . $base64, 'r');
 
         $conn_id = ftp_connect(FTP_SERVER);
