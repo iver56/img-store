@@ -16,6 +16,7 @@ if (isset($_GET["pw"]) && $_GET["pw"] == SCHEDULER_PASSWORD) {
 
         $conn_id = ftp_connect(FTP_SERVER);
         $login_result = ftp_login($conn_id, FTP_USER_NAME, FTP_USER_PASS);
+        ftp_pasv($conn_id, true);
 
         // upload the file
         if (ftp_fput($conn_id, FTP_REMOTE_FILE_PATH, $stream, FTP_BINARY)) {
