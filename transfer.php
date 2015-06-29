@@ -22,7 +22,8 @@ if (isset($_GET["pw"]) && $_GET["pw"] == SCHEDULER_PASSWORD) {
             echo "File successfully uploaded";
         } else {
             http_response_code(500);
-            echo "There was a problem while uploading the file";
+            echo "There was a problem while uploading the file. \n";
+            echo var_dump(error_get_last());
         }
         ftp_close($conn_id);
     }
