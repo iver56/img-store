@@ -5,5 +5,12 @@ define("PASSWORD", "datpassword");
 define("DATABASE", "datdatabase");
 define("DATASOURCE", "datdatasource.net");
 
-mysql_connect(DATASOURCE, USERNAME, PASSWORD);
-@mysql_select_db(DATABASE) or die("Unable to select database");
+define("HUB_PASSWORD", "something749426da06blablabla");
+define("SCHEDULER_PASSWORD", "somethingotherthanthelineabove2387468da");
+
+define("FTP_SERVER", "datserver.com");
+define("FTP_USER_NAME", "datftpusername");
+define("FTP_USER_PASS", "datftppassword");
+define("FTP_REMOTE_FILE_PATH", "/datfolder/datfile.jpg");
+
+$link = mysqli_connect(DATASOURCE, USERNAME, PASSWORD, DATABASE) or die("Error " . mysqli_error($link));
