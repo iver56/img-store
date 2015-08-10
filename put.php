@@ -14,8 +14,10 @@ if (isset($_POST["hub_password"]) && strcmp($_POST["hub_password"], HUB_PASSWORD
             die('ok');
         }
     } else {
+        http_response_code(400);
         die('missing post data');
     }
 } else {
+    http_response_code(400);
     die('correct hub pw plz');
 }
