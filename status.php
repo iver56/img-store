@@ -8,12 +8,15 @@ if ($result) {
     $row = mysqli_fetch_assoc($result);
 
     date_default_timezone_set('UTC');
-    $time = date("c", strtotime($row['timestamp']));
-    $is_outdated = strtotime($row['timestamp']) < strtotime('-15 minutes');
+    $timestamp_int = strtotime($row['timestamp']);
+    $time = date("c", $timestamp_int);
+    $is_outdated = $timestamp_int < strtotime('-15 minutes');
+    $age = time() - $timestamp_int; // in seconds
 
     $arr = array(
         'time' => $time,
-        'is_outdated' => $is_outdated
+        'is_outdated' => $is_outdated,
+        'age' => $age
     );
 
     $json_string = json_encode($arr);

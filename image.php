@@ -1,11 +1,11 @@
 <?php
-require_once ('common_include.php');
+require_once('common_include.php');
 
 $result = mysqli_query($link, 'SELECT content FROM images ORDER BY id DESC LIMIT 1');
 $data = array();
 if ($result) {
     header('Content-Type: image/jpeg');
-    
+
     if ($result->num_rows == 0) {
         http_response_code(404);
         $not_available_img = imagecreate(1024, 768);
@@ -23,4 +23,4 @@ if ($result) {
     echo $image_file;
 } else {
     die('Error: Invalid query: ' . mysqli_error());
-    }
+}
